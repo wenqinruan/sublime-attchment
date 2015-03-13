@@ -1,0 +1,26 @@
+<snippet>
+	<content><![CDATA[
+<?php
+namespace Topxia\Service\\${1:Table};
+
+interface ${1:Table}Service
+{
+    public function get${1:Table}(\$id);
+
+    public function search${1:Table}s(array \$conditions, \$sort, \$start, \$limit);
+
+    public function search${1:Table}sCount(\$conditions);
+
+    public function create${1:Table}(\$fields);
+
+    public function update${1:Table}(\$id, \$fields);
+
+    public function delete${1:Table}(\$id);
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>service</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.php</scope> -->
+	<description>service interface</description>
+</snippet>

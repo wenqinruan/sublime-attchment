@@ -1,0 +1,58 @@
+<snippet>
+	<content><![CDATA[
+<?php
+namespace ${2:Topxia}\Service\\${1:Table}\Impl;
+
+use Topxia\Service\Common\BaseService;
+use ${2:Topxia}\Service\\${1:Table}Service;
+use Topxia\Common\ArrayToolkit;
+
+Class ${1:Table}ServiceImpl extends BaseService implements ${1:Table}Service
+{
+	public function get${1:Table}(\$id)
+	{
+        return \$this->get${1:Table}Dao()->get${1:Table}(\$id);
+	}
+
+    public function search${1:Table}s(array \$conditions, \$orderBys, \$start, \$limit)
+    {   
+
+        return \$this->get${1:Table}Dao()->search${1:Table}s(\$conditions, \$orderBys, \$start, \$limit);
+    }
+
+    public function search${1:Table}sCount(\$conditions)
+    {   
+        return \$this->get${1:Table}Dao()->search${1:Table}sCount(\$conditions);
+    }
+
+    public function create${1:Table}(\$fields)
+    {
+        if (!ArrayToolkit::requireds(\$fields, array('${3:userId}', 'title', 'content'))) {
+            throw \$this->createServiceException('缺少必要字段，创建用户发票失败！');
+        }
+
+        \$fields = ArrayToolkit::parts(\$fields, array());
+        return \$this->get${1:Table}Dao()->create${1:Table}(\$fields);  
+    }
+    
+    public function update${1:Table}(\$id, \$fields)
+    {
+        return \$this->get${1:Table}Dao()->update${1:Table}(\$id,\$fields);
+    }
+
+    public function delete${1:Table}(\$id)
+    {
+        return \$this->get${1:Table}Dao()->delete${1:Table}(\$id);
+    }
+
+    private function get${1:Table}Dao()
+    {
+        return \$this->createDao('${1:Table}.${1:Table}Dao');
+    }
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>serviceImpl</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<description>service Impl</description>
+</snippet>

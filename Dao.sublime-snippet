@@ -1,0 +1,26 @@
+<snippet>
+	<content><![CDATA[
+<?php
+
+namespace ${2:Topxia}\Service\\${1:Table}\Dao;
+
+interface ${1:Table}Dao
+{
+	public function get${1:Table}(\$id);
+
+	public function search${1:Table}s(\$conditions, \$orderBys, \$start, \$limit);
+
+	public function search${1:Table}sCount(\$conditions);
+
+	public function create${1:Table}(\$${1:Table});
+
+	public function update${1:Table}(\$id, \$${1:Table});
+
+	public function delete${1:Table}(\$id);
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>Dao</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<description>Dao</description>
+</snippet>

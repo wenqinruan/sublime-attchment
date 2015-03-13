@@ -1,0 +1,69 @@
+<snippet>
+	<content><![CDATA[
+<?php
+namespace ${2:Topxia}\Service\\${1:Table}\Dao\Impl;
+
+use Topxia\Service\Common\BaseDao;
+use ${2:Topxia}\Service\\${1:Table}\Dao\\${1:Table}Dao;
+
+class ${1:Table}DaoImpl extends BaseDao implements ${1:Table}Dao
+{
+    protected \$table = '${1:Table}';
+
+    public function get${1:Table}(\$id)
+    {
+        \$sql = "SELECT * FROM {\$this->table} WHERE id = ? LIMIT 1";
+        return \$this->getConnection()->fetchAssoc(\$sql, array(\$id)) ? : null;
+    }
+
+    public function search${1:Table}s(\$conditions, \$orderBy, \$start, \$limit)
+    {
+        \$this->filterStartLimit(\$start, \$limit);
+        \$builder = \$this->create${1:Table}QueryBuilder(\$conditions)
+            ->select('*')
+            ->orderBy(\$orderBy[0], \$orderBy[1])
+            ->setFirstResult(\$start)
+            ->setMaxResults(\$limit);
+        return \$builder->execute()->fetchAll() ? : array();
+    }
+
+    public function search${1:Table}sCount(\$conditions)
+    {
+        \$builder = \$this->create${1:Table}QueryBuilder(\$conditions)
+            ->select('COUNT(id)');
+        return \$builder->execute()->fetchColumn(0);
+    }
+
+    private function create${1:Table}QueryBuilder(\$conditions)
+    {
+        return  \$this->createDynamicQueryBuilder(\$conditions)
+            ->from(\$this->table, '${1:Table}');
+    }
+
+    public function create${1:Table}(\$${1:Table})
+    {
+        \$affected = \$this->getConnection()->insert(\$this->table, \$${1:Table});
+        if (\$affected <= 0) {
+            throw \$this->createDaoException('Insert ${1:Table} error.');
+        }
+        return \$this->get${1:Table}(\$this->getConnection()->lastInsertId());
+    }
+
+    public function update${1:Table}(\$id, \$fields)
+    {
+        \$this->getConnection()->update(\$this->table, \$fields, array('id' => \$id));
+        return \$this->get${1:Table}(\$id);
+    }
+
+    public function delete${1:Table}(\$id)
+    {
+    	return \$this->getConnection()->delete(\$this->table, array('id' => \$id));
+    }
+
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>DaoImpl</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<description> Dao Impl</description>
+</snippet>
